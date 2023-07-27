@@ -9,6 +9,7 @@ const cryptoApiHeaders = {
 
 const createRequest = (url) => ({ url, headers: cryptoApiHeaders });
 
+
 export const cryptoApi = createApi({
   reducerPath: "cryptoApi",
   baseQuery: fetchBaseQuery({ baseUrl }),
@@ -16,9 +17,21 @@ export const cryptoApi = createApi({
     getCoinsList: builder.query({
       query: (count) => createRequest(`/coins?limit=${count}`),
     }),
+    getCryptoDetails: builder.query({
+      query: (coinId) => createRequest(`/coin/${coinId}`),
+    }),
+    getCryptoHistory: builder.query({
+      query: ({coinId , timeperiod}) =>
+        createRequest(
+          `/coin/${coinId}/history?&timePeriod=${timeperiod}`
+        ),
+    }),
   }),
 });
 
 export const {
-    useGetCoinsListQuery
+    useGetCoinsListQuery ,
+    useGetCryptoDetailsQuery ,
+    useGetCryptoHistoryQuery , 
 } = cryptoApi
+

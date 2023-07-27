@@ -15,6 +15,7 @@ const Cryptocurrencies = ({simplified}) => {
     const filteredcoin = data?.data?.coins.filter(coin => coin.name.toLowerCase().includes(Term.toLowerCase()))
     SetCryptos(filteredcoin)
   },[data , Term])
+
   
   if(isFetching && !data) {
     return(<Loading/>);
@@ -30,7 +31,7 @@ const Cryptocurrencies = ({simplified}) => {
       <Row className='crypto-card-container' gutter={[32,32]}>
         {Cryptos?.map(crypto => (
           <Col className='crypto-card' xs={24} sm={12} lg={6} key={crypto.uuid}>
-            <Link to={`/crypto/${crypto.uuid}`} >
+            <Link to={`/cryptocurrencies/${crypto.uuid}`} >
               <Card title={`${crypto.rank} . ${crypto.name}`} extra={<img className='crypto-image' src={crypto.iconUrl} />} hoverable={true}>
                   <Typography>
                     <Text>Price : {millify(crypto.price)}</Text>
